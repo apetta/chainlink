@@ -103,7 +103,7 @@ func TestHeadTracker_HeadTrackableCallbacks(t *testing.T) {
 	eth.RegisterSubscription("newHeads", headers)
 
 	assert.Nil(t, ht.Start())
-	assert.Equal(t, int32(1), checker.ConnectedCount())
+	g.Eventually(func() int32 { return checker.ConnectedCount() }).Should(gomega.Equal(int32(1)))
 	assert.Equal(t, int32(0), checker.DisconnectedCount())
 	assert.Equal(t, int32(0), checker.OnNewHeadCount())
 
